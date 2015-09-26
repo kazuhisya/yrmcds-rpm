@@ -1,0 +1,54 @@
+diff -aurN yrmcds-1.1.4.orig/etc/logrotate yrmcds-1.1.4/etc/logrotate
+--- yrmcds-1.1.4.orig/etc/logrotate	2015-09-25 20:08:24.132445764 +0900
++++ yrmcds-1.1.4/etc/logrotate	2015-09-25 20:09:06.246444211 +0900
+@@ -6,7 +6,7 @@
+ 	rotate 4
+ 	compress
+ 	missingok
+-	create 0644 nobody nogroup
++	create 0644 root root
+ 	postrotate
+ 		reload yrmcds >/dev/null 2>&1 || true
+ 	endscript
+diff -aurN yrmcds-1.1.4.orig/etc/yrmcds.conf yrmcds-1.1.4/etc/yrmcds.conf
+--- yrmcds-1.1.4.orig/etc/yrmcds.conf	2015-09-25 20:08:24.133445764 +0900
++++ yrmcds-1.1.4/etc/yrmcds.conf	2015-09-25 20:10:10.866441829 +0900
+@@ -1,10 +1,10 @@
+ # Configuration file for yrmcdsd
+ 
+ # setuid user
+-user = nobody
++user = root
+ 
+ # setgid group
+-group = nogroup
++group = root
+ 
+ # To become the master, virtual_ip address must be owned.
+ virtual_ip = 127.0.0.1
+diff -aurN yrmcds-1.1.4.orig/Makefile yrmcds-1.1.4/Makefile
+--- yrmcds-1.1.4.orig/Makefile	2015-09-25 20:08:24.127445764 +0900
++++ yrmcds-1.1.4/Makefile	2015-09-25 20:10:46.020440532 +0900
+@@ -57,7 +57,7 @@
+ 	cp etc/logrotate /etc/logrotate.d/yrmcds
+ 	cp etc/yrmcds.conf $(DEFAULT_CONFIG)
+ 	cp $(EXE) $(PREFIX)/sbin/yrmcdsd
+-	install -o nobody -g nogroup -m 644 /dev/null /var/log/yrmcds.log
++	install -o root -g root -m 644 /dev/null /var/log/yrmcds.log
+ 
+ COPYING.hpp: COPYING
+ 	echo -n 'static char COPYING[] = R"(' > $@
+diff -aurN yrmcds-1.1.4.orig/test/test.conf yrmcds-1.1.4/test/test.conf
+--- yrmcds-1.1.4.orig/test/test.conf	2015-09-25 20:08:24.145445763 +0900
++++ yrmcds-1.1.4/test/test.conf	2015-09-25 20:09:39.112442999 +0900
+@@ -5,8 +5,8 @@
+ repl_port	= 1122
+ max_connections	= 10000
+ temp_dir	= "/var/tmp"
+-user		= nobody
+-group		= nogroup
++user		= root
++group		= root
+ log.threshold	= warning
+ log.file	= "/var/log/yrmcds.log"
+ buckets		= 1000000
