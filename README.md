@@ -10,11 +10,10 @@ This repository provides unofficial rpmbuild scripts for Red Hat Enterprise Linu
 Tested working on:
 
 - RHEL/CentOS 7 x86_64
+    - When you try to build on el7, must enable the EPEL repository.
 - Fedora 22 x86_64
     - This spec is tested under el7 only.
     - However, Fedora22 or later work. maybe.
-
-
 
 Prerequisites:
 
@@ -36,8 +35,6 @@ $ git clone https://github.com/kazuhisya/yrmcds-rpm.git
 $ cd yrmcds-rpm
 $ sudo yum-builddep ./yrmcds.spec
 ```
-
-
 
 ```bash
 $ make rpm
