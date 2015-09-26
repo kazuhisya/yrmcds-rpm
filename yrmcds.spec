@@ -10,6 +10,7 @@ Source1:       yrmcds.service
 BuildRoot:     %{_tmppath}/%{name}-%{version}-%{release}-tmp
 Prefix:        /usr
 Requires:      libevent
+BuildRequires: systemd-units
 BuildRequires: libevent-devel
 BuildRequires: gcc-c++
 BuildRequires: make
@@ -53,8 +54,8 @@ for file in ChangeLog COPYING COPYING.hpp README.md ; do
     cp -pf $RPM_BUILD_DIR/%{name}-%{version}/$file $RPM_BUILD_ROOT/usr/share/doc/%{name}-%{version}/
 done
 cp -Rpf $RPM_BUILD_DIR/%{name}-%{version}/docs $RPM_BUILD_ROOT/usr/share/doc/%{name}-%{version}/
-install -o root -g root -m 644 /dev/null $RPM_BUILD_ROOT/var/log/%{name}.log
-install -m 0644 %{SOURCE1} $RPM_BUILD_ROOT/usr/lib/systemd/system/%{name}.service
+cp -Rpf %{SOURCE1} $RPM_BUILD_ROOT/usr/lib/systemd/system/%{name}.service
+touch $RPM_BUILD_ROOT/var/log/%{name}.log
 
 
 %clean
@@ -64,10 +65,11 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(-,root,root,-)
 %{_defaultdocdir}/%{name}-%{version}
+%{_sysconfdir}/%{name}
+%{_sysconfdir}/logrotate.d
 %defattr(755,root,root)
 %{_sbindir}/%{name}d
-%{_sysconfdir}/%{name}/
-%{_sysconfdir}/logrotate.d/
+%defattr(644,root,root)
 %{_unitdir}/%{name}.service
 /var/log/%{name}.log
 
