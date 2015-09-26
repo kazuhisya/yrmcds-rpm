@@ -12,12 +12,16 @@ Tested working on:
 - RHEL/CentOS 7 x86_64
     - When you try to build on el7, must enable the EPEL repository.
 - Fedora 22 x86_64
-    - This spec is tested under el7 only.
-    - However, Fedora22 or later work. maybe.
+    - Fedora22 or later work. maybe.
 
 Prerequisites:
 
 - `gcc` and `g++` 4.8.1 or newer
+
+## Download
+
+- You can find prebuilt rpm binary from here(el7 and fc22)
+    - [Fedora Copr khara/yrmcds Copr](https://copr.fedoraproject.org/coprs/khara/yrmcds/)
 
 
 ## Build
@@ -42,6 +46,6 @@ $ cd ./dist/RPMS/x86_64/
 $ sudo yum install ./yrmcds-X.X.X-X.el7.x86_64.rpm --nogpgcheck
 ```
 
-# Disclaimer
+## Disclaimer
 
 - This repository and all files that are included in this, there is no relationship at all with the upstream and vendor.
