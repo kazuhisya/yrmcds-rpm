@@ -1,6 +1,6 @@
 Name:          yrmcds
-Version:       1.1.4
-Release:       2%{?dist}
+Version:       1.1.5
+Release:       1%{?dist}
 Summary:       memcached compatible KVS with master/slave replication.
 Group:         Development/Libraries
 License:       BSD-2-clause
@@ -73,6 +73,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Tue Nov 17 2015 Kazuhisa Hara <kazuhisya@gmail.com>  - 1.1.5-1
+- Updated version to 1.1.5
 * Mon Sep 28 2015 Kazuhisa Hara <kazuhisya@gmail.com>  - 1.1.4-2
 - Improved in order to conform to rpmlint syntax check
 * Sat Sep 26 2015 Kazuhisa Hara <kazuhisya@gmail.com>  - 1.1.4-1
