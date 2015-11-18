@@ -31,7 +31,7 @@ Since the memcached protocol is perfectly compatible with the original implement
 
 
 %build
-make PREFIX=%{_prefix} DEFAULT_CONFIG=/etc/%{name}/%{name}.conf
+make PREFIX=%{_prefix} DEFAULT_CONFIG=/etc/%{name}/%{name}.conf %{?_smp_mflags}
 
 
 %install
