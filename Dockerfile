@@ -5,7 +5,6 @@ RUN yum install -y yum-utils rpmdevtools make git epel-release
 COPY / /yrmcds-rpm
 WORKDIR /yrmcds-rpm
 
-WORKDIR /yrmcds-rpm
 RUN yum-builddep -y ./yrmcds.spec
 RUN make rpm
 RUN yum install -y \
