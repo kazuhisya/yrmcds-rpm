@@ -11,4 +11,8 @@ RUN yum install -y \
         --nogpgcheck \
         ./dist/RPMS/x86_64/yrmcds-[^d.+].*
 RUN /usr/bin/install -o root -g root -m 0700 -d /var/tmp/yrmcds && /bin/rm -f /var/tmp/yrmcds/*
-CMD ["yrmcdsd", "-v"]
+
+EXPOSE 11211
+
+CMD ["-f", "/etc/yrmcds/yrmcds.conf"]
+ENTRYPOINT ["/usr/sbin/yrmcdsd"]
