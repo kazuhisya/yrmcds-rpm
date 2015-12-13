@@ -12,5 +12,5 @@ test:
     - docker run -ti kazuhisya/yrmcds-rpm "-v"
   post:
     - docker cp $(docker ps -lq):/yrmcds-rpm/dist $CIRCLE_ARTIFACTS
-    - bash ./copr-deploy.sh
+    - pyenv shell 2.7 && bash ./copr-deploy.sh
 
