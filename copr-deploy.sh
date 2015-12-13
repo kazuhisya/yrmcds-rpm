@@ -18,6 +18,6 @@ EOF
 
 version=`awk '$1=="Version:" {print $2}' ${spec_file}`
 release=`awk '$1=="Release:" {print $2}' ${spec_file} |tr -d "%{?dist}"`
-srpm_file=$CIRCLE_ARTIFACTS/dist/SRPM/${project_name}-${version}-${release}.el7.centos.src.rpm
+srpm_file=$CIRCLE_ARTIFACTS/dist/SRPMS/${project_name}-${version}-${release}.el7.centos.src.rpm
 copr-cli build --nowait ${project_name} ${srpm_file}
 
