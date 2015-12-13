@@ -9,8 +9,7 @@ dependencies:
 
 test:
   override:
-    - docker run -ti kazuhisya/yrmcds-rpm /bin/true
-    - docker run -ti kazuhisya/yrmcds-rpm node -v
+    - docker run -ti kazuhisya/yrmcds-rpm "-v"
   post:
     - docker cp $(docker ps -lq):/yrmcds-rpm/dist $CIRCLE_ARTIFACTS
     - bash ./copr-deploy.sh
