@@ -9,7 +9,8 @@ RUN yum-builddep -y ./yrmcds.spec
 RUN make rpm
 RUN yum install -y \
         --nogpgcheck \
-        ./dist/RPMS/x86_64/yrmcds-[^d.+].*
+        ./dist/RPMS/x86_64/yrmcds-[^d.+].* \
+        copr-cli
 RUN /usr/bin/install -o root -g root -m 0700 -d /var/tmp/yrmcds && /bin/rm -f /var/tmp/yrmcds/*
 
 EXPOSE 11211

@@ -5,12 +5,11 @@ dependencies:
   override:
     - docker info
     - docker build -t kazuhisya/yrmcds-rpm .
-    - pyenv shell 2.7.10 && pip install --upgrade pip copr copr-cli chardet requests urllib3
 
 test:
   override:
     - docker run -ti kazuhisya/yrmcds-rpm "-v"
   post:
     - docker cp $(docker ps -lq):/yrmcds-rpm/dist $CIRCLE_ARTIFACTS
-    - pyenv shell 2.7.10 && bash ./copr-deploy.sh
+    - docker run -e COPR_LOGIN=$COPR_LOGIN -e COPR_USERNAME=$COPR_USERNAME -e COPR_TOKEN=$COPR_TOKEN --entrypoint "/yrmcds-rpm/copr-deploy.sh" kazuhisya/yrmcds-rpm
 
