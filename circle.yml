@@ -5,12 +5,12 @@ dependencies:
   override:
     - docker info
     - docker build -t kazuhisya/yrmcds-rpm .
-    - pyenv shell 2.7 && pip install --upgrade copr-cli
+    - pyenv shell 2.7.10 && pip install --upgrade copr-cli
 
 test:
   override:
     - docker run -ti kazuhisya/yrmcds-rpm "-v"
   post:
     - docker cp $(docker ps -lq):/yrmcds-rpm/dist $CIRCLE_ARTIFACTS
-    - pyenv shell 2.7 && bash ./copr-deploy.sh
+    - pyenv shell 2.7.10 && bash ./copr-deploy.sh
 
