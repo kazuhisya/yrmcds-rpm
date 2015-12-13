@@ -1,6 +1,6 @@
 #!/bin/bash
 set -e
-project_name=yrmcsd
+project_name=yrmcds
 copr_login=$COPR_LOGIN
 copr_username=$COPR_USERNAME
 copr_token=$COPR_TOKEN
