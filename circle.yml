@@ -5,8 +5,7 @@ dependencies:
   override:
     - docker info
     - docker build -t kazuhisya/yrmcds-rpm .
-    - pyenv shell 2.7
-    - pip install --upgrade copr-cli
+    - pyenv shell 2.7 && pip install --upgrade copr-cli
 
 test:
   override:
