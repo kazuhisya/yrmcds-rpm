@@ -5,7 +5,7 @@ dependencies:
   override:
     - docker info
     - docker build -t kazuhisya/yrmcds-rpm .
-    - pyenv shell 2.7.10 && pip install --upgrade pi copr copr-cli chardet requests urllib3
+    - pyenv shell 2.7.10 && pip install --upgrade pip copr copr-cli chardet requests urllib3
 
 test:
   override:
