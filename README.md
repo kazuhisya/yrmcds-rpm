@@ -1,5 +1,7 @@
 #  yrmcds RPM spec
 
+[![Circle CI](https://circleci.com/gh/kazuhisya/yrmcds-rpm/tree/master.svg?style=shield)](https://circleci.com/gh/kazuhisya/yrmcds-rpm/tree/master)
+
 This repository provides unofficial rpmbuild scripts for Red Hat Enterprise Linux and Fedora.
 
 - yrmcds - memcached compatible KVS with master/slave replication. http://cybozu.github.io/yrmcds/
@@ -11,18 +13,33 @@ Tested working on:
 
 - RHEL/CentOS 7 x86_64
     - When you try to build on el7, must enable the EPEL repository.
-- Fedora 22 x86_64
-    - Fedora22 or later work. maybe.
+- Fedora 22, 23 x86_64
 
 Prerequisites:
 
 - `gcc` and `g++` 4.8.1 or newer
 
-## Download
+## Compiled Package
 
-- You can find prebuilt rpm binary from here(el7 and fc22)
-    - [Fedora Copr khara/yrmcds Copr](https://copr.fedoraproject.org/coprs/khara/yrmcds/)
 
+- You can find prebuilt rpm binary from here(el7 and fc22, 23)
+    - [FedoraCopr khara/yrmcds Copr](https://copr.fedoraproject.org/coprs/khara/yrmcds/)
+
+
+
+el7:
+
+```bash
+$ sudo curl -sL -o /etc/yum.repos.d/khara-yrmcds.repo https://copr.fedoraproject.org/coprs/khara/yrmcds/repo/epel-7/khara-yrmcds-epel-7.repo
+$ sudo yum install -y yrmcds
+```
+
+fc23:
+
+```bash
+$ sudo dnf copr enable khara/yrmcds
+$ sudo dnf install -y yrmcds yrmcds
+```
 
 ## Build
 
