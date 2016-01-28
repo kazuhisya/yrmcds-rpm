@@ -1,6 +1,18 @@
-diff -aurN yrmcds-1.1.4.orig/etc/logrotate yrmcds-1.1.4/etc/logrotate
---- yrmcds-1.1.4.orig/etc/logrotate	2015-09-25 20:08:24.132445764 +0900
-+++ yrmcds-1.1.4/etc/logrotate	2015-09-25 20:09:06.246444211 +0900
+diff -aurN yrmcds-1.1.6.orig/Makefile yrmcds-1.1.6/Makefile
+--- yrmcds-1.1.6.orig/Makefile	2016-01-28 13:08:38.000000000 +0900
++++ yrmcds-1.1.6/Makefile	2016-01-28 13:10:26.000000000 +0900
+@@ -56,7 +56,7 @@
+ 	cp etc/logrotate /etc/logrotate.d/yrmcds
+ 	cp etc/yrmcds.conf $(DEFAULT_CONFIG)
+ 	cp $(EXE) $(PREFIX)/sbin/yrmcdsd
+-	install -o nobody -g nogroup -m 644 /dev/null /var/log/yrmcds.log
++	install -o root -g root -m 644 /dev/null /var/log/yrmcds.log
+ 
+ COPYING.hpp: COPYING
+ 	echo -n 'static char COPYING[] = R"(' > $@
+diff -aurN yrmcds-1.1.6.orig/etc/logrotate yrmcds-1.1.6/etc/logrotate
+--- yrmcds-1.1.6.orig/etc/logrotate	2016-01-28 13:08:38.000000000 +0900
++++ yrmcds-1.1.6/etc/logrotate	2016-01-28 13:09:36.000000000 +0900
 @@ -6,7 +6,7 @@
  	rotate 4
  	compress
@@ -10,9 +22,21 @@ diff -aurN yrmcds-1.1.4.orig/etc/logrotate yrmcds-1.1.4/etc/logrotate
  	postrotate
  		reload yrmcds >/dev/null 2>&1 || true
  	endscript
-diff -aurN yrmcds-1.1.4.orig/etc/yrmcds.conf yrmcds-1.1.4/etc/yrmcds.conf
---- yrmcds-1.1.4.orig/etc/yrmcds.conf	2015-09-25 20:08:24.133445764 +0900
-+++ yrmcds-1.1.4/etc/yrmcds.conf	2015-09-25 20:10:10.866441829 +0900
+diff -aurN yrmcds-1.1.6.orig/etc/upstart yrmcds-1.1.6/etc/upstart
+--- yrmcds-1.1.6.orig/etc/upstart	2016-01-28 13:08:38.000000000 +0900
++++ yrmcds-1.1.6/etc/upstart	2016-01-28 13:14:40.000000000 +0900
+@@ -15,7 +15,7 @@
+ pre-start script
+     [ -d /var/tmp/yrmcds ] || mkdir /var/tmp/yrmcds
+     chmod 700 /var/tmp/yrmcds
+-    chown nobody:nogroup /var/tmp/yrmcds
++    chown root:root /var/tmp/yrmcds
+     rm -f /var/tmp/yrmcds/*
+ 
+     # make sure keepalived init script was disabled.
+diff -aurN yrmcds-1.1.6.orig/etc/yrmcds.conf yrmcds-1.1.6/etc/yrmcds.conf
+--- yrmcds-1.1.6.orig/etc/yrmcds.conf	2016-01-28 13:08:38.000000000 +0900
++++ yrmcds-1.1.6/etc/yrmcds.conf	2016-01-28 13:10:00.000000000 +0900
 @@ -1,10 +1,10 @@
  # Configuration file for yrmcdsd
  
@@ -26,23 +50,25 @@ diff -aurN yrmcds-1.1.4.orig/etc/yrmcds.conf yrmcds-1.1.4/etc/yrmcds.conf
  
  # To become the master, virtual_ip address must be owned.
  virtual_ip = 127.0.0.1
-diff -aurN yrmcds-1.1.4.orig/Makefile yrmcds-1.1.4/Makefile
---- yrmcds-1.1.4.orig/Makefile	2015-09-25 20:08:24.127445764 +0900
-+++ yrmcds-1.1.4/Makefile	2015-09-25 20:10:46.020440532 +0900
-@@ -57,7 +57,7 @@
- 	cp etc/logrotate /etc/logrotate.d/yrmcds
- 	cp etc/yrmcds.conf $(DEFAULT_CONFIG)
- 	cp $(EXE) $(PREFIX)/sbin/yrmcdsd
--	install -o nobody -g nogroup -m 644 /dev/null /var/log/yrmcds.log
-+	install -o root -g root -m 644 /dev/null /var/log/yrmcds.log
- 
- COPYING.hpp: COPYING
- 	echo -n 'static char COPYING[] = R"(' > $@
-diff -aurN yrmcds-1.1.4.orig/test/test.conf yrmcds-1.1.4/test/test.conf
---- yrmcds-1.1.4.orig/test/test.conf	2015-09-25 20:08:24.145445763 +0900
-+++ yrmcds-1.1.4/test/test.conf	2015-09-25 20:09:39.112442999 +0900
-@@ -5,8 +5,8 @@
- repl_port	= 1122
+diff -aurN yrmcds-1.1.6.orig/test/config.cpp yrmcds-1.1.6/test/config.cpp
+--- yrmcds-1.1.6.orig/test/config.cpp	2016-01-28 13:08:38.000000000 +0900
++++ yrmcds-1.1.6/test/config.cpp	2016-01-28 13:15:05.000000000 +0900
+@@ -11,8 +11,8 @@
+     cybozu_assert(g_config.repl_port() == 1122);
+     cybozu_assert(g_config.bind_ip().size() == 2);
+     cybozu_assert(g_config.max_connections() == 10000);
+-    cybozu_assert(g_config.user() == "nobody");
+-    cybozu_assert(g_config.group() == "nogroup");
++    cybozu_assert(g_config.user() == "root");
++    cybozu_assert(g_config.group() == "root");
+     cybozu_assert(g_config.memory_limit() == (1024 << 20));
+     cybozu_assert(g_config.repl_bufsize() == 100);
+     cybozu_assert(g_config.secure_erase() == true);
+diff -aurN yrmcds-1.1.6.orig/test/test.conf yrmcds-1.1.6/test/test.conf
+--- yrmcds-1.1.6.orig/test/test.conf	2016-01-28 13:08:38.000000000 +0900
++++ yrmcds-1.1.6/test/test.conf	2016-01-28 13:10:51.000000000 +0900
+@@ -6,8 +6,8 @@
+ bind_ip		= 10.1.2.3  127.0.1.2
  max_connections	= 10000
  temp_dir	= "/var/tmp"
 -user		= nobody
