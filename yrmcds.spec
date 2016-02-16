@@ -1,6 +1,6 @@
 Name:          yrmcds
 Version:       1.1.6
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       memcached compatible KVS with master/slave replication.
 Group:         Development/Libraries
 License:       BSD-2-clause
@@ -75,6 +75,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Tue Feb 16 2016 Kazuhisa Hara <kazuhisya@gmail.com>  - 1.1.6-2
+- Add example keepalived.conf
+- Explicitly declare "noreplace"
 * Thu Jan 28 2016 Kazuhisa Hara <kazuhisya@gmail.com>  - 1.1.6-1
 - Updated version to 1.1.6
 * Tue Nov 17 2015 Kazuhisa Hara <kazuhisya@gmail.com>  - 1.1.5-1
