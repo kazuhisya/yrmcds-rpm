@@ -42,10 +42,12 @@ mkdir -p $RPM_BUILD_ROOT%{_unitdir}
 mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/%{name}
 mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d
 mkdir -p $RPM_BUILD_ROOT%{_docdir}/%{name}-%{version}
+mkdir -p $RPM_BUILD_ROOT%{_docdir}/%{name}-%{version}/examples
 mkdir -p $RPM_BUILD_ROOT%{_var}/log
 
 cp -pf $RPM_BUILD_DIR/%{name}-%{version}/etc/logrotate $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d/%{name}
 cp -pf $RPM_BUILD_DIR/%{name}-%{version}/etc/%{name}.conf $RPM_BUILD_ROOT%{_sysconfdir}/%{name}/
+cp -Rpf $RPM_BUILD_DIR/%{name}-%{version}/etc/keepalived.conf $RPM_BUILD_ROOT/usr/share/doc/%{name}-%{version}/examples/
 cp -pf $RPM_BUILD_DIR/%{name}-%{version}/%{name}d $RPM_BUILD_ROOT%{_sbindir}
 
 for file in ChangeLog COPYING COPYING.hpp README.md ; do
