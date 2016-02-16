@@ -65,7 +65,7 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(-,root,root,-)
 %{_defaultdocdir}/%{name}-%{version}
-%{_sysconfdir}/%{name}
+%config(noreplace) %{_sysconfdir}/%{name}/%{name}.conf
 %{_sysconfdir}/logrotate.d
 %defattr(755,root,root)
 %{_sbindir}/%{name}d
