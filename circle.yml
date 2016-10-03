@@ -15,5 +15,9 @@ test:
     - docker run -ti kazuhisya/yrmcds-rpm "-v"
   post:
     - docker cp $(docker ps -lq):/yrmcds-rpm/dist $CIRCLE_ARTIFACTS
-    - docker run -e COPR_LOGIN=$COPR_LOGIN -e COPR_USERNAME=$COPR_USERNAME -e COPR_TOKEN=$COPR_TOKEN --entrypoint "/yrmcds-rpm/copr-deploy.sh" kazuhisya/yrmcds-rpm
-
+deployment:
+  copr:
+    branch: master
+    owner: kazuhisya
+    commands:
+      - docker run -e COPR_LOGIN=$COPR_LOGIN -e COPR_USERNAME=$COPR_USERNAME -e COPR_TOKEN=$COPR_TOKEN --entrypoint "/yrmcds-rpm/copr-deploy.sh" kazuhisya/yrmcds-rpm
