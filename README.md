@@ -13,7 +13,7 @@ Tested working on:
 
 - RHEL/CentOS 7 x86_64
     - When you try to build on el7, must enable the EPEL repository.
-- Fedora 22, 23 x86_64
+- Fedora 22, 23, 24 x86_64
 
 Prerequisites:
 
@@ -22,7 +22,7 @@ Prerequisites:
 ## Compiled Package
 
 
-- You can find prebuilt rpm binary from here(el7 and fc22, 23)
+- You can find prebuilt rpm binary from here(el7 and fc22, 23, 24)
     - [FedoraCopr khara/yrmcds Copr](https://copr.fedoraproject.org/coprs/khara/yrmcds/)
 
 
@@ -38,7 +38,7 @@ fc23:
 
 ```bash
 $ sudo dnf copr enable khara/yrmcds
-$ sudo dnf install -y yrmcds yrmcds
+$ sudo dnf install -y yrmcds
 ```
 
 ## Build
