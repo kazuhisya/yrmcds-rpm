@@ -1,15 +1,16 @@
-FROM centos:7
+FROM fedora:24
 MAINTAINER Kazuhisa Hara <kazuhisya@gmail.com>
 
-RUN yum install -y yum-utils rpmdevtools make
+RUN dnf install -y dnf-plugins-core rpmdevtools make git
 COPY / /yrmcds-rpm
 WORKDIR /yrmcds-rpm
 
-RUN yum-builddep -y ./yrmcds.spec
+RUN dnf builddep -y ./yrmcds.spec
 RUN make rpm
-RUN yum install -y \
+RUN dnf install -y \
         --nogpgcheck \
-        ./dist/RPMS/x86_64/yrmcds-[^d.+].*
+        ./dist/RPMS/x86_64/yrmcds-[^d.+].* \
+        copr-cli
 RUN /usr/bin/install -o root -g root -m 0700 -d /var/tmp/yrmcds && /bin/rm -f /var/tmp/yrmcds/*
 
 EXPOSE 11211

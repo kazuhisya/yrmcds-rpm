@@ -1,3 +1,4 @@
+# systemd service for yrmcds
 [Unit]
 Description=memcached compatible KVS with master/slave replication.
 ConditionPathExists=/etc/yrmcds/yrmcds.conf
@@ -5,6 +6,9 @@ After=network.target
 
 [Service]
 Type=simple
+LimitNOFILE=100000
+LimitMEMLOCK=infinity
+PrivateTmp=true
 User=root
 Group=root
 ExecStart=/usr/sbin/yrmcdsd
@@ -12,6 +16,7 @@ ExecReload=/bin/kill -HUP $MAINPID
 PermissionsStartOnly=true
 ExecStartPre=/usr/bin/install -o root -g root -m 0700 -d /var/tmp/yrmcds
 ExecStartPre=/bin/rm -f /var/tmp/yrmcds/*
+Restart=on-failure
 
 [Install]
 WantedBy=multi-user.target
