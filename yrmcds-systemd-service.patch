@@ -1,23 +1,22 @@
---- yrmcds-1.1.8.org/etc/yrmcds.service	2016-10-03 23:12:22.000000000 +0900
-+++ yrmcds-1.1.8/etc/yrmcds.service	2016-10-04 11:49:29.656663685 +0900
-@@ -1,8 +1,9 @@
+--- yrmcds-1.1.8.org/etc/yrmcds.service	2016-10-04 12:39:59.204551985 +0900
++++ yrmcds-1.1.8/etc/yrmcds.service	2016-10-04 12:41:24.896548825 +0900
+@@ -1,8 +1,8 @@
  # systemd service for yrmcds
  [Unit]
  Description=yrmcds server
 -Wants=networking.target
 -After=networking.target
-+ConditionPathExists=/etc/yrmcds/yrmcds.conf
 +Wants=network.target
 +After=network.target
  
  [Service]
  Type=simple
-@@ -11,7 +12,7 @@
+@@ -11,7 +11,7 @@
  UMask=0077
  PrivateTmp=true
  ExecStartPre=/bin/mkdir -p /var/tmp/yrmcds
 -ExecStart=/usr/local/sbin/yrmcdsd
-+ExecStart=/usr/sbin/yrmcdsd
++ExecStart=/usr/sbin/yrmcdsd -f /etc/yrmcds/yrmcds.conf
  Restart=on-failure
  
  [Install]

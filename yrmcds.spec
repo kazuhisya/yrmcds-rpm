@@ -1,12 +1,11 @@
 Name:          yrmcds
 Version:       1.1.8
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       memcached compatible KVS with master/slave replication.
 Group:         Development/Libraries
 License:       BSD-2-clause
 URL:           http://cybozu.github.io/yrmcds/
 Source0:       https://github.com/cybozu/%{name}/archive/v%{version}.tar.gz
-Source1:       yrmcds.service
 BuildRoot:     %{_tmppath}/%{name}-%{version}-%{release}-tmp
 Requires:      libevent
 BuildRequires: systemd-units
@@ -103,6 +102,8 @@ fi
 
 
 %changelog
+* Tue Oct  4 2016 Kazuhisa Hara <kazuhisya@gmail.com>  - 1.1.8-2
+- Clean up systemd files
 * Tue Oct  4 2016 Kazuhisa Hara <kazuhisya@gmail.com>  - 1.1.8-1
 - In previous releases, yrmcds using root user, now it makes use of nobody user.
 - Updated version to 1.1.8

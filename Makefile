@@ -10,7 +10,6 @@ ifeq "$(GCCVERSION_481)" "1"
 	mkdir -p dist/{BUILD,RPMS,SPECS,SOURCES,SRPMS,install}
 	mv v$(VERSION).tar.gz dist/SOURCES/
 	cp -pf *.patch dist/SOURCES/
-	cp -pf $(NAME).service dist/SOURCES/
 	rpmbuild -ba \
 		--define "_topdir $(PWD)/dist" \
 		--define "buildroot $(PWD)/dist/install" \
