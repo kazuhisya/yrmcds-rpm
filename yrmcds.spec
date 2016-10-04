@@ -57,7 +57,6 @@ for file in ChangeLog COPYING COPYING.hpp README.md ; do
 done
 cp -Rpf $RPM_BUILD_DIR/%{name}-%{version}/docs $RPM_BUILD_ROOT/usr/share/doc/%{name}-%{version}/
 touch $RPM_BUILD_ROOT%{_var}/log/%{name}.log
-install -o nobody -g nobody -m 644 /dev/null /var/log/yrmcds.log
 
 
 %clean
@@ -104,6 +103,7 @@ fi
 %changelog
 * Tue Oct  4 2016 Kazuhisa Hara <kazuhisya@gmail.com>  - 1.1.8-2
 - Clean up systemd files
+- Clean up log files
 * Tue Oct  4 2016 Kazuhisa Hara <kazuhisya@gmail.com>  - 1.1.8-1
 - In previous releases, yrmcds using root user, now it makes use of nobody user.
 - Updated version to 1.1.8
