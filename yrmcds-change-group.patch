@@ -1,0 +1,72 @@
+diff -aurN yrmcds-1.1.8.org/etc/logrotate yrmcds-1.1.8/etc/logrotate
+--- yrmcds-1.1.8.org/etc/logrotate	2016-10-03 23:12:22.000000000 +0900
++++ yrmcds-1.1.8/etc/logrotate	2016-10-04 10:29:16.258841156 +0900
+@@ -6,7 +6,7 @@
+ 	rotate 4
+ 	compress
+ 	missingok
+-	create 0644 nobody nogroup
++	create 0644 nobody nobody
+ 	postrotate
+ 		if [ -d /run/systemd/system ]; then
+ 			systemctl kill -s SIGHUP yrmcds.service || true
+diff -aurN yrmcds-1.1.8.org/etc/upstart yrmcds-1.1.8/etc/upstart
+--- yrmcds-1.1.8.org/etc/upstart	2016-10-03 23:12:22.000000000 +0900
++++ yrmcds-1.1.8/etc/upstart	2016-10-04 10:29:26.298840786 +0900
+@@ -15,7 +15,7 @@
+ pre-start script
+     [ -d /var/tmp/yrmcds ] || mkdir /var/tmp/yrmcds
+     chmod 700 /var/tmp/yrmcds
+-    chown nobody:nogroup /var/tmp/yrmcds
++    chown nobody:nobody /var/tmp/yrmcds
+     rm -f /var/tmp/yrmcds/*
+ 
+     # make sure keepalived init script was disabled.
+diff -aurN yrmcds-1.1.8.org/etc/yrmcds.conf yrmcds-1.1.8/etc/yrmcds.conf
+--- yrmcds-1.1.8.org/etc/yrmcds.conf	2016-10-03 23:12:22.000000000 +0900
++++ yrmcds-1.1.8/etc/yrmcds.conf	2016-10-04 10:29:40.790840251 +0900
+@@ -4,7 +4,7 @@
+ user = nobody
+ 
+ # setgid group
+-group = nogroup
++group = nobody
+ 
+ # To become the master, virtual_ip address must be owned.
+ virtual_ip = 127.0.0.1
+diff -aurN yrmcds-1.1.8.org/Makefile yrmcds-1.1.8/Makefile
+--- yrmcds-1.1.8.org/Makefile	2016-10-03 23:12:22.000000000 +0900
++++ yrmcds-1.1.8/Makefile	2016-10-04 10:30:06.317839310 +0900
+@@ -65,7 +65,7 @@
+ 	cp etc/logrotate /etc/logrotate.d/yrmcds
+ 	cp etc/yrmcds.conf $(DEFAULT_CONFIG)
+ 	cp $(EXE) $(PREFIX)/sbin/yrmcdsd
+-	install -o nobody -g nogroup -m 644 /dev/null /var/log/yrmcds.log
++	install -o nobody -g nobody -m 644 /dev/null /var/log/yrmcds.log
+ 
+ COPYING.hpp: COPYING
+ 	echo -n 'static char COPYING[] = R"(' > $@
+diff -aurN yrmcds-1.1.8.org/test/config.cpp yrmcds-1.1.8/test/config.cpp
+--- yrmcds-1.1.8.org/test/config.cpp	2016-10-03 23:12:22.000000000 +0900
++++ yrmcds-1.1.8/test/config.cpp	2016-10-04 10:30:20.366838792 +0900
+@@ -12,7 +12,7 @@
+     cybozu_assert(g_config.bind_ip().size() == 2);
+     cybozu_assert(g_config.max_connections() == 10000);
+     cybozu_assert(g_config.user() == "nobody");
+-    cybozu_assert(g_config.group() == "nogroup");
++    cybozu_assert(g_config.group() == "nobody");
+     cybozu_assert(g_config.memory_limit() == (1024 << 20));
+     cybozu_assert(g_config.repl_bufsize() == 100);
+     cybozu_assert(g_config.secure_erase() == true);
+diff -aurN yrmcds-1.1.8.org/test/test.conf yrmcds-1.1.8/test/test.conf
+--- yrmcds-1.1.8.org/test/test.conf	2016-10-03 23:12:22.000000000 +0900
++++ yrmcds-1.1.8/test/test.conf	2016-10-04 10:30:32.622838340 +0900
+@@ -7,7 +7,7 @@
+ max_connections	= 10000
+ temp_dir	= "/var/tmp"
+ user		= nobody
+-group		= nogroup
++group		= nobody
+ log.threshold	= warning
+ log.file	= "/var/log/yrmcds.log"
+ buckets		= 1000000
