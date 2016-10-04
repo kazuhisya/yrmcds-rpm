@@ -10,7 +10,7 @@ RUN make rpm
 RUN yum install -y \
         --nogpgcheck \
         ./dist/RPMS/x86_64/yrmcds-[^d.+].*
-RUN /usr/bin/install -o root -g root -m 0700 -d /var/tmp/yrmcds && /bin/rm -f /var/tmp/yrmcds/*
+RUN /usr/bin/install -o nobody -g nobody -m 0700 -d /var/tmp/yrmcds && /bin/rm -f /var/tmp/yrmcds/*
 
 EXPOSE 11211
 
